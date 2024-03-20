@@ -22,7 +22,6 @@ const SortedCountries = ({ url, continents, languages, currencies }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // if ()
         const { data } = await axios.get(
           `${url}/countries/sort?name=${name}&pop=${pop}&area=${area}`
         );

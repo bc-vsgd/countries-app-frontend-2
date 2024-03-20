@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import HomeCountriesPage from "./pages/HomeCountries/HomeCountriesPage";
 import SortedCountries from "./pages/SortedCountries/SortedCountries";
+import SearchedCountries from "./pages/SearchedCountries/SearchedCountries";
 // Components
 import Header from "./components/Header/Header";
 // Style
@@ -45,6 +46,7 @@ function App() {
             />
           }
         />
+        <Route path="/countries/search" element={<SearchedCountries />} />
       </Routes>
     </Router>
   );

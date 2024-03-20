@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import getContinentsArray from "../../utils/getContinentsArray";
+import getLanguagesArray from "../../utils/getLanguagesArray";
+import { useState } from "react";
 
 const SearchComponent = ({
   setPage,
@@ -11,6 +13,12 @@ const SearchComponent = ({
   languages,
   currencies,
 }) => {
+  const contArray = getContinentsArray(continents);
+  // console.log("continents, ", contArray);
+  const langArray = getLanguagesArray(languages);
+  // States
+  const [selectOption, setSelectOption] = useState("");
+  //
   const navigate = useNavigate();
 
   const handleSortSelect = (event) => {
@@ -40,11 +48,15 @@ const SearchComponent = ({
   };
 
   const handleSearchSelect = (event) => {
-    // console.log("search, select ", event.target.value);
     const value = event.target.value;
-    if (value === "continent") {
-      console.log(getContinentsArray(continents));
-    }
+    setSelectOption(value);
+  };
+
+  const handleContinentSearch = (event) => {
+    // console.log("search continent");
+    const value = event.target.value;
+    // console.log("value: ", value);
+    navigate("/countries/search");
   };
 
   return (
@@ -64,13 +76,33 @@ const SearchComponent = ({
           <input type="text" placeholder="Search by name" />
           <button>Search</button>
         </div>
-        {/* <label>Search by</label> */}
         <select name="search" id="search-select" onChange={handleSearchSelect}>
           <option value="">Search by</option>
           <option value="continent">Continent</option>
           <option value="language">Language</option>
           <option value="currency">Currency</option>
         </select>
+        {selectOption === "continent" && (
+          <select name="" id="" size={10} onChange={handleContinentSearch}>
+            {contArray.map((cont, index) => {
+              // region: upper case
+              return cont.region ? (
+                <option value={cont.region} key={index}>
+                  {cont.region.toUpperCase()}
+                </option>
+              ) : (
+                <option value={cont.subregion} key={index}>
+                  {cont.subregion}
+                </option>
+              );
+            })}
+          </select>
+        )}
+        {selectOption === "language" && (
+          <select name="" id="">
+            <option value="">{langArray[0].lang}</option>
+          </select>
+        )}
       </div>
     </>
   );
